@@ -4,7 +4,7 @@ import scala.collection.mutable.ListBuffer;
 
 import ds._;
 
-object dijkstra {    
+object bfs {    
     def execute_iter(g: Graph[Int, Int, Int])(source: g.Node) : List[g.Node] = {
         
         implicit class RichNode(node : g.Node) {                               
@@ -18,11 +18,11 @@ object dijkstra {
         visited += source
 
         while(visited.length > 0) {                   
-            val head: g.Node = visited(0)        
+            val head: g.Node = visited(visited.length - 1)        
             if(!head.visited) {
                 head.visit(true)             
                 result += head                
-                visited = visited.drop(1)                        
+                visited = visited.dropRight(1)                        
                 for(node <- g.getNeighbors(head) if !node.visited) {
                     visited += node         
                 }
